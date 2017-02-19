@@ -2,12 +2,22 @@ package com.epam.library.domain;
 
 import java.util.Date;
 
-public class Employee {
+public class Employee extends Entity{
 
     private String name;
     private String mail;
     private Date dateOfBirth;
     private Book[] books;
+
+    public Employee() {
+        super();
+    }
+
+    public Employee(String name, String mail, Date dateOfBirth) {
+        this.name = name;
+        this.mail = mail;
+        this.dateOfBirth = dateOfBirth;
+    }
 
     public String getName() {
         return name;
@@ -56,6 +66,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee name " + name + ", mail" + mail + ", dateOfBirth " + dateOfBirth;
+        return super.toString() + ". " + name + " (" + dateOfBirth + ") , e=mail: " + mail;
     }
 }

@@ -1,14 +1,24 @@
 package com.epam.library.domain;
 
-import java.util.Arrays;
-
-public class Book {
+public class Book extends Entity{
 
     private String title;
-    private String author;
-    private int id;
-    private int dateOfPublishing;
-    private Employee[] employees;
+    private Author author;
+    private int publishYear;
+
+    public Book() {
+    }
+
+    public Book(int id, String title, Author author) {
+        super(id);
+        this.title = title;
+        this.author = author;
+    }
+
+    public Book(String title, int auID, int publishYear) {
+        this.title = title;
+        this.publishYear = publishYear;
+    }
 
     public String getTitle() {
         return title;
@@ -18,36 +28,20 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
-    public int getId() {
-        return id;
+    public int getPublishYear() {
+        return publishYear;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getDateOfPublishing() {
-        return dateOfPublishing;
-    }
-
-    public void setDateOfPublishing(int dateOfPublishing) {
-        this.dateOfPublishing = dateOfPublishing;
-    }
-
-    public Employee[] getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Employee[] employees) {
-        this.employees = employees;
+    public void setPublishYear(int publishYear) {
+        this.publishYear = publishYear;
     }
 
     @Override
@@ -57,27 +51,22 @@ public class Book {
 
         Book book = (Book) o;
 
-        if (getId() != book.getId()) return false;
-        if (getDateOfPublishing() != book.getDateOfPublishing()) return false;
-        if (!getTitle().equals(book.getTitle())) return false;
-        if (!getAuthor().equals(book.getAuthor())) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(getEmployees(), book.getEmployees());
+        if (getPublishYear() != book.getPublishYear()) return false;
+        if (getTitle() != null ? !getTitle().equals(book.getTitle()) : book.getTitle() != null) return false;
+        return getAuthor() != null ? getAuthor().equals(book.getAuthor()) : book.getAuthor() == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = getTitle().hashCode();
-        result = 31 * result + getAuthor().hashCode();
-        result = 31 * result + getId();
-        result = 31 * result + getDateOfPublishing();
-        result = 31 * result + Arrays.hashCode(getEmployees());
+        int result = getTitle() != null ? getTitle().hashCode() : 0;
+        result = 31 * result + (getAuthor() != null ? getAuthor().hashCode() : 0);
+        result = 31 * result + getPublishYear();
         return result;
     }
 
     @Override
     public String toString() {
-        return id + ". Book title " + title +", author " + author + ", dateOfPublishing " + dateOfPublishing;
+        return super.toString() + ". \"" + title + "\" " + author + " (" + publishYear + ").";
     }
 }
